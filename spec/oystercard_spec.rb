@@ -18,12 +18,11 @@ describe OysterCard do
 
   describe "#deduct" do
     it "deducts money from balance" do
-      expect(card.deduct(20)).to eq card.balance
+      expect(card.send(:deduct, 20)).to eq card.balance
     end
   end
 
   # Implicitly testing in_journey?
-
   describe "#touch_in" do
     it "changes journey state to true" do
       card.top_up(20)
@@ -35,10 +34,13 @@ describe OysterCard do
   end
 
   describe "#touch_out" do
-    it "changes journey state to true" do
-      expect(card.touch_out).to eq card.in_journey?
+    it "changes journey state to false" do
+      card.touch_out
+      expect(card.in_journey?).to eq false
+    end
+    it "deducts mimimum fare" do
+      expect{card.touch_out}.to change{card.balance}.from(card.balance).to(card.balance - OysterCard::MIN_FARE)
     end
   end
-
 
 end
