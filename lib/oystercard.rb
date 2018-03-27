@@ -18,6 +18,7 @@ class OysterCard
   end
 
   def touch_in
+    raise "Balance is lower than mimimum (£1)" if @balance < 1
     @journey = true
   end
 
