@@ -1,6 +1,5 @@
 require "oystercard"
 
-
 describe OysterCard do
   subject(:card) {described_class.new}
 
