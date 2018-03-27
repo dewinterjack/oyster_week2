@@ -3,7 +3,6 @@ require "oystercard"
 
 describe OysterCard do
   subject(:card) {described_class.new}
-  subject(:card_with_money) {described_class.new.top_up(50)}
 
   it "has a balance of 0 by default" do
     expect(card.balance).to eq 0
@@ -23,4 +22,20 @@ describe OysterCard do
       expect(card.deduct(20)).to eq card.balance
     end
   end
+
+  # Implicitly testing in_journey?
+
+  describe "#touch_in" do
+    it "changes journey state to true" do
+      expect(card.touch_in).to eq card.in_journey?
+    end
+  end
+
+  describe "#touch_out" do
+    it "changes journey state to true" do
+      expect(card.touch_out).to eq card.in_journey?
+    end
+  end
+
+
 end
