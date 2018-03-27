@@ -39,7 +39,7 @@ describe OysterCard do
       expect(card.in_journey?).to eq false
     end
     it "deducts mimimum fare" do
-      expect{card.touch_out}.to change{card.balance}.from(card.balance).to(card.balance - OysterCard::MIN_FARE)
+      expect{card.touch_out}.to change{card.balance}.by(-OysterCard::MIN_FARE)
     end
   end
 
