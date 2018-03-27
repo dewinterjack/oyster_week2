@@ -25,5 +25,5 @@ dependencies: rspec
 Feature test file:
 
 ```
-ruby oyster.rb
+ruby feature.rb
 ```
