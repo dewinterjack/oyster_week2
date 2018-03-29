@@ -47,6 +47,12 @@ describe OysterCard do
     it "deducts mimimum fare" do
       expect{card.touch_out}.to change{card.balance}.by(-OysterCard::MIN_FARE)
     end
+    it "forgets entry station" do
+      card.top_up(30)
+      card.touch_in(:Baker_Street)
+      card.touch_out
+      expect(card.entry).to eq nil
+    end
   end
 
 end
