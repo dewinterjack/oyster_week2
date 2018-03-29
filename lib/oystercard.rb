@@ -8,7 +8,7 @@ class OysterCard
   def initialize()
     @balance = 0
     @entry = nil
-    @history = Hash.new
+    @history = []
   end
 
   def top_up(amount)
@@ -22,7 +22,7 @@ class OysterCard
   end
 
   def touch_out(exit)
-    @history = { entry => exit }
+    @history << { entry: @entry, exit: exit }
     @entry = nil
     deduct(MIN_FARE)
   end

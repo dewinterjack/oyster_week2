@@ -53,7 +53,7 @@ describe OysterCard do
       card.top_up(30)
       card.touch_in(:Baker_Street)
       card.touch_out(:Aldgate)
-      expect(card.history[:Baker_Street]).to eq :Aldgate
+      expect(card.history[-1]).to eq ({:entry=>:Baker_Street, :exit=>:Aldgate})
     end
   end
 
