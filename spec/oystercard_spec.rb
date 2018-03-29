@@ -24,10 +24,6 @@ describe OysterCard do
 
   # Implicitly testing in_journey?
   describe "#touch_in" do
-    it "changes journey state to true" do
-      card.top_up(20)
-      expect(card.touch_in(:Baker_Street)).to eq card.in_journey?
-    end
     it "raises error when balance is not at least £1" do
       expect{card.touch_in(:Baker_Street)}.to raise_error "Balance is lower than mimimum (£1)"
     end
@@ -41,17 +37,23 @@ describe OysterCard do
 
   describe "#touch_out" do
     it "changes journey state to false" do
-      card.touch_out
+      card.touch_out(:Aldgate)
       expect(card.in_journey?).to eq false
     end
     it "deducts mimimum fare" do
-      expect{card.touch_out}.to change{card.balance}.by(-OysterCard::MIN_FARE)
+      expect{card.touch_out(:Aldgate)}.to change{card.balance}.by(-OysterCard::MIN_FARE)
     end
     it "forgets entry station" do
       card.top_up(30)
       card.touch_in(:Baker_Street)
-      card.touch_out
+      card.touch_out(:Aldgate)
       expect(card.entry).to eq nil
+    end
+    it "saves entry & exit stations inside a hash (journey history)" do
+      card.top_up(30)
+      card.touch_in(:Baker_Street)
+      card.touch_out(:Aldgate)
+      expect(card.history[:Baker_Street]).to eq :Aldgate
     end
   end
 
