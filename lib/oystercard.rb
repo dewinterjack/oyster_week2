@@ -7,7 +7,7 @@ class OysterCard
 
   def initialize()
     @balance = 0
-    @journey = false
+    @entry = nil
   end
 
   def top_up(amount)
